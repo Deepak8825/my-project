@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, Depends, Query
+from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 from pydantic import BaseModel
 import requests
@@ -9,6 +10,15 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from passlib.context import CryptContext
 
 app = FastAPI()
+
+# Allow CORS for local dev frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Security setup
 SECRET_KEY = os.getenv("SECRET_KEY", "airware-secret-key")
@@ -157,6 +167,54 @@ async def get_india_aqi():
             "lng": 80.2707,
             "aqi": 92,
             "pm25": 45,
+            "lastUpdated": datetime.now().isoformat()
+        },
+        {
+            "location": "Coimbatore",
+            "lat": 11.0168,
+            "lng": 76.9558,
+            "aqi": 58,
+            "pm25": 22,
+            "lastUpdated": datetime.now().isoformat()
+        },
+        {
+            "location": "Madurai",
+            "lat": 9.9252,
+            "lng": 78.1198,
+            "aqi": 110,
+            "pm25": 60,
+            "lastUpdated": datetime.now().isoformat()
+        },
+        {
+            "location": "Tiruchirappalli",
+            "lat": 10.7905,
+            "lng": 78.7047,
+            "aqi": 135,
+            "pm25": 80,
+            "lastUpdated": datetime.now().isoformat()
+        },
+        {
+            "location": "Salem",
+            "lat": 11.6643,
+            "lng": 78.1460,
+            "aqi": 78,
+            "pm25": 34,
+            "lastUpdated": datetime.now().isoformat()
+        },
+        {
+            "location": "Erode",
+            "lat": 11.3410,
+            "lng": 77.7172,
+            "aqi": 48,
+            "pm25": 16,
+            "lastUpdated": datetime.now().isoformat()
+        },
+        {
+            "location": "Puducherry",
+            "lat": 11.9416,
+            "lng": 79.8083,
+            "aqi": 65,
+            "pm25": 28,
             "lastUpdated": datetime.now().isoformat()
         }
     ]
