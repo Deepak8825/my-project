@@ -113,6 +113,54 @@ async def get_tips(aqi: int = Query(...)):
     # Placeholder - will implement health tips logic
     return {"aqi": aqi, "tips": []}
 
+@app.get("/api/aqi/india")
+async def get_india_aqi():
+    """Get air quality data for major Indian cities"""
+    # In a real implementation, this would fetch from OpenAQ API
+    # For now, return mock data for demonstration
+    return [
+        {
+            "location": "Delhi",
+            "lat": 28.6139,
+            "lng": 77.2090,
+            "aqi": 156,
+            "pm25": 95,
+            "lastUpdated": datetime.now().isoformat()
+        },
+        {
+            "location": "Mumbai",
+            "lat": 19.0760,
+            "lng": 72.8777,
+            "aqi": 89,
+            "pm25": 42,
+            "lastUpdated": datetime.now().isoformat()
+        },
+        {
+            "location": "Bangalore",
+            "lat": 12.9716,
+            "lng": 77.5946,
+            "aqi": 65,
+            "pm25": 32,
+            "lastUpdated": datetime.now().isoformat()
+        },
+        {
+            "location": "Kolkata",
+            "lat": 22.5726,
+            "lng": 88.3639,
+            "aqi": 142,
+            "pm25": 78,
+            "lastUpdated": datetime.now().isoformat()
+        },
+        {
+            "location": "Chennai",
+            "lat": 13.0827,
+            "lng": 80.2707,
+            "aqi": 92,
+            "pm25": 45,
+            "lastUpdated": datetime.now().isoformat()
+        }
+    ]
+
 # Root endpoint
 @app.get("/")
 def read_root():

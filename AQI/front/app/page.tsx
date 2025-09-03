@@ -6,6 +6,15 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Sun, Cloud, CloudRain, CloudDrizzle, Wind } from "lucide-react";
 import Link from "next/link";
+import dynamic from 'next/dynamic';
+const IndiaMap = dynamic(() => import('@/components/ui/map'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center h-96">
+      <div className="w-12 h-12 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
+    </div>
+  )
+});
 
 // AQI data types
 interface AqiData {
@@ -149,6 +158,8 @@ const Home = () => {
             <Link href="/forecast" className="text-gray-600 hover:text-blue-600 font-medium">Forecast</Link>
             <Link href="/health-tips" className="text-gray-600 hover:text-blue-600 font-medium">Health Tips</Link>
             <Link href="/settings" className="text-gray-600 hover:text-blue-600 font-medium">Settings</Link>
+            <Link href="/auth/login" className="text-gray-600 hover:text-blue-600 font-medium">Login</Link>
+            <Link href="/auth/register" className="text-gray-600 hover:text-blue-600 font-medium">Register</Link>
           </nav>
         </div>
       </header>
@@ -331,6 +342,23 @@ const Home = () => {
             </CardHeader>
             <CardContent>
               <p className="text-lg">{getHealthRecommendation(aqiData.aqi)}</p>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* India Air Quality Map */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35, duration: 0.5 }}
+          className="mb-8"
+        >
+          <Card className="bg-white/90 backdrop-blur-md">
+            <CardHeader>
+              <CardTitle className="text-xl">India Air Quality Map</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <IndiaMap />
             </CardContent>
           </Card>
         </motion.div>
